@@ -7,6 +7,7 @@ function makeColorBlock(element) {
     colorPalette.appendChild(newDiv);
   }
 }
+// making a pixel board
 function makeBoardPixel() {
   for (let i = 0; i < 25; i += 1) {
     const pixelBoard = document.getElementById('pixel-board');
@@ -15,6 +16,7 @@ function makeBoardPixel() {
     pixelBoard.appendChild(pixelBlock);
   }
 }
+
 window.onload = () => {
   makeColorBlock('div');
   makeBoardPixel();
