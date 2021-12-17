@@ -24,11 +24,12 @@ function randomColors() {
   const random = `rgb(${colors1},${colors2},${colors3})`;
   return random;
 }
-function applyingColors() {
+
+function applyingColors(generateColors) {
   const palette = document.getElementsByClassName('color');
   palette[0].style.backgroundColor = 'black';
   for (let i = 1; i < palette.length; i += 1) {
-    palette[i].style.backgroundColor = randomColors();
+    palette[i].style.backgroundColor = generateColors();
   }
 }
 
@@ -60,6 +61,7 @@ function getColor() {
     }
   }
 }
+
 function paintPixels() {
   const pixel = document.getElementsByClassName('pixel');
   for (let i = 0; i < pixel.length; i += 1) {
@@ -84,6 +86,8 @@ window.onload = () => {
   makeBoardPixel();
   selectColors();
   paintPixels();
-  applyingColors();
+  applyingColors(randomColors);
   clearBoard();
 };
+
+// Projeto realizado com ajuda e supervisão de Emanoel Mattos Ribeiro - Turma 14 - Tribo C e Lucas Cardoso - Turma 3
