@@ -7,7 +7,7 @@ function chunk(arr, len) {
   const n = arr.length;
 
   while (i < n) {
-    chunks.push(arr.slice(i, i += len));
+    chunks.push(arr.slice(i, (i += len)));
   }
 
   return chunks;
@@ -32,52 +32,47 @@ describe('2 - Adicione à página uma paleta de quatro cores distintas.', () => 
     cy.get('#color-palette').should('be.visible');
     cy.get('#color-palette').children('.color');
   });
-  
+
   it('Verifica se cada cor individual da paleta de cores possui a `classe` chamada `color`.', () => {
     cy.get('.color')
       .should('have.length', 4)
       .then((colors) => {
         for (let i = 0; i < colors.length; i++) {
-          cy.wrap(colors[i])
-            .should('be.visible');
+          cy.wrap(colors[i]).should('be.visible');
         }
       });
   });
 
   it('Verifica se a cor de fundo de cada elemento da paleta é a cor que o elemento representa. **A única cor não permitida na paleta é a cor branca.**', () => {
-    cy.get('.color')
-      .each((color) => {
-        cy.wrap(color)
-          .should('have.class', 'color')
-          .and('not.have.css', 'background-color', WHITE);
-        cy.wrap(color)
-          .should('have.css', 'background-color');
-      });
+    cy.get('.color').each((color) => {
+      cy.wrap(color)
+        .should('have.class', 'color')
+        .and('not.have.css', 'background-color', WHITE);
+      cy.wrap(color).should('have.css', 'background-color');
+    });
   });
 
   it('Verifica se cada elemento da paleta de cores tem uma borda preta, sólida e com 1 pixel de largura;', () => {
-    cy.get('.color')
-      .each((color) => {
-        cy.wrap(color)
-          .and('have.css', 'border', `1px solid ${BLACK}`)
-          .and('have.class', 'color');
-      });
+    cy.get('.color').each((color) => {
+      cy.wrap(color)
+        .and('have.css', 'border', `1px solid ${BLACK}`)
+        .and('have.class', 'color');
+    });
   });
 
   it('Verifica se a paleta lista todas as cores disponíveis para utilização, lado a lado.', () => {
-    cy.get('.color')
-      .then((colors) => {
-        for (let index = 1; index < colors.length; index += 1) {
-          const currentColor = colors[index];
-          const previousColor = colors[index - 1];
-          cy.wrap(currentColor)
-            .should('be.onTheRightOf', previousColor)
-            .and('be.horizontallyAlignedWith', previousColor);
-        }
-      });
+    cy.get('.color').then((colors) => {
+      for (let index = 1; index < colors.length; index += 1) {
+        const currentColor = colors[index];
+        const previousColor = colors[index - 1];
+        cy.wrap(currentColor)
+          .should('be.onTheRightOf', previousColor)
+          .and('be.horizontallyAlignedWith', previousColor);
+      }
+    });
   });
 
-  it('Verifica se a paleta de cores está posicionada abaixo do título \'Paleta de Cores\'', () => {
+  it("Verifica se a paleta de cores está posicionada abaixo do título 'Paleta de Cores'", () => {
     cy.get('h1#title').then((title) => {
       cy.get('#color-palette').should('be.belowOf', title);
     });
@@ -85,9 +80,9 @@ describe('2 - Adicione à página uma paleta de quatro cores distintas.', () => 
 
   it('Verifica se a paleta de cores não contém cores repetidas.', () => {
     cy.get('.color').then((colors) => {
-      const allColors = Array.from(colors).map((color) => (
+      const allColors = Array.from(colors).map((color) =>
         Cypress.$(color).css('background-color')
-      ));
+      );
       cy.log(allColors);
       const uniqColors = [...new Set(allColors)];
       cy.log(uniqColors);
@@ -102,50 +97,30 @@ describe('3 - Adicione a cor **preta** como a primeira cor da paleta de cores.',
   });
 
   it('Verifica se a primeira cor da paleta é preta', () => {
-    cy.get('.color')
-      .first()
-      .should('have.css', 'background-color', BLACK);
+    cy.get('.color').first().should('have.css', 'background-color', BLACK);
   });
 
   it('Verifica se as demais cores podem ser escolhidas livremente.', () => {
-    cy.get('.color')
-      .eq(1)
-      .should('not.have.css', 'background-color', BLACK);
-    cy.get('.color')
-      .eq(1)
-      .should('not.have.css', 'background-color', WHITE);
+    cy.get('.color').eq(1).should('not.have.css', 'background-color', BLACK);
+    cy.get('.color').eq(1).should('not.have.css', 'background-color', WHITE);
     cy.get('.color')
       .eq(1)
       .should('not.have.css', 'background-color', 'rgba(0, 0, 0, 0)');
-    cy.get('.color')
-      .eq(1)
-      .should('have.css', 'background-color');
+    cy.get('.color').eq(1).should('have.css', 'background-color');
 
-    cy.get('.color')
-      .eq(2)
-      .should('not.have.css', 'background-color', BLACK);
-    cy.get('.color')
-      .eq(2)
-      .should('not.have.css', 'background-color', WHITE);
+    cy.get('.color').eq(2).should('not.have.css', 'background-color', BLACK);
+    cy.get('.color').eq(2).should('not.have.css', 'background-color', WHITE);
     cy.get('.color')
       .eq(2)
       .should('not.have.css', 'background-color', 'rgba(0, 0, 0, 0)');
-    cy.get('.color')
-      .eq(2)
-      .should('have.css', 'background-color');
+    cy.get('.color').eq(2).should('have.css', 'background-color');
 
-    cy.get('.color')
-      .eq(3)
-      .should('not.have.css', 'background-color', BLACK);
-    cy.get('.color')
-      .eq(3)
-      .should('not.have.css', 'background-color', WHITE);
+    cy.get('.color').eq(3).should('not.have.css', 'background-color', BLACK);
+    cy.get('.color').eq(3).should('not.have.css', 'background-color', WHITE);
     cy.get('.color')
       .eq(3)
       .should('not.have.css', 'background-color', 'rgba(0, 0, 0, 0)');
-    cy.get('.color')
-      .eq(3)
-      .should('have.css', 'background-color');
+    cy.get('.color').eq(3).should('have.css', 'background-color');
   });
 });
 
@@ -207,13 +182,12 @@ describe('5 - Faça com que cada elemento do quadro de pixels possua 40 pixels d
   });
 
   it('Verifica se 40 pixels é o tamanho total do elemento, incluindo seu conteúdo e excluindo a borda preta, que deve ser criada à parte.', () => {
-    cy.get('.pixel')
-      .each((pixel) => {
-        cy.wrap(pixel)
-          .should('have.css', 'height', '40px')
-          .and('have.css', 'width', '40px')
-          .and('have.css', 'border', `1px solid ${BLACK}`);
-      });
+    cy.get('.pixel').each((pixel) => {
+      cy.wrap(pixel)
+        .should('have.css', 'height', '40px')
+        .and('have.css', 'width', '40px')
+        .and('have.css', 'border', `1px solid ${BLACK}`);
+    });
   });
 });
 
@@ -227,10 +201,9 @@ describe('6 - Defina a cor preta como cor inicial. Ao carregar a página a cor p
   });
 
   it('Verifica se nenhuma outra cor da paleta tem a `classe` `selected`', () => {
-    cy.get('.color:not(:first-child)')
-      .each((color) => {
-        cy.wrap(color).should('not.have.class', 'selected');
-      });
+    cy.get('.color:not(:first-child)').each((color) => {
+      cy.wrap(color).should('not.have.class', 'selected');
+    });
   });
 });
 
@@ -257,9 +230,7 @@ describe('7 - Clicar em uma das cores da paleta, faz com que ela seja selecionad
       const backgroundColor = color.css('background-color');
       cy.wrap(color).click();
       cy.get('.pixel').each((pixel) => {
-        cy.wrap(pixel)
-          .click()
-          .should('not.have.class', 'selected');
+        cy.wrap(pixel).click().should('not.have.class', 'selected');
       });
     });
   });
@@ -272,9 +243,7 @@ describe('8 - Clicar em um pixel dentro do quadro após selecionar uma cor na pa
 
   it('Verifica se ao carregar a página deve ser possível pintar os pixels de preto', () => {
     cy.get('.pixel').each((pixel) => {
-      cy.wrap(pixel)
-        .click()
-        .should('have.css', 'background-color', BLACK);
+      cy.wrap(pixel).click().should('have.css', 'background-color', BLACK);
     });
   });
 
@@ -347,20 +316,22 @@ describe('9 - Crie um botão que, ao ser clicado, limpa o quadro preenchendo a c
     });
   });
 
-  it('Verifica se o texto do botão é \'Limpar\'', () => {
+  it("Verifica se o texto do botão é 'Limpar'", () => {
     cy.get('#clear-board').should('contain.text', 'Limpar');
   });
 
   it('Verifica se ao clicar no botão, o quadro de pixels é totalmente preenchido de branco', () => {
-    cy.get('.color').eq(1).then((color) => {
-      const backgroundColor = color.css('background-color');
-      cy.wrap(color).click();
-      cy.get('.pixel').each((pixel) => {
-        cy.wrap(pixel)
-          .click()
-          .should('have.css', 'background-color', backgroundColor);
+    cy.get('.color')
+      .eq(1)
+      .then((color) => {
+        const backgroundColor = color.css('background-color');
+        cy.wrap(color).click();
+        cy.get('.pixel').each((pixel) => {
+          cy.wrap(pixel)
+            .click()
+            .should('have.css', 'background-color', backgroundColor);
+        });
       });
-    });
 
     cy.get('#clear-board').click();
     cy.get('.pixel').each((pixel) => {
@@ -383,10 +354,10 @@ describe('10 - Faça o quadro de pixels ter seu tamanho definido pelo usuário.'
   });
 
   it('Verifica se o input só aceita número maiores que zero. Essa restrição deve ser feita usando os atributos do elemento `input`', () => {
-    cy.get('#board-size[type=\'number\'][min=\'1\']');
+    cy.get("#board-size[type='number'][min='1']");
   });
 
-  it('Verifica se o botão contém o texto \'VQV\'', () => {
+  it("Verifica se o botão contém o texto 'VQV'", () => {
     cy.get('#generate-board').contains(/vqv/i);
   });
 
@@ -406,9 +377,9 @@ describe('10 - Faça o quadro de pixels ter seu tamanho definido pelo usuário.'
     });
   });
 
-  it('Verifica se nenhum valor for colocado no input ao clicar no botão, um `alert` é exibido com o texto: \'Board inválido!\'', () => {
+  it("Verifica se nenhum valor for colocado no input ao clicar no botão, um `alert` é exibido com o texto: 'Board inválido!'", () => {
     let alerted = false;
-    cy.on('window:alert', (msg) => alerted = msg);
+    cy.on('window:alert', (msg) => (alerted = msg));
 
     cy.get('#generate-board')
       .click()
@@ -463,19 +434,19 @@ describe('12 - Faça com que as cores da paleta sejam geradas aleatoriamente ao 
 
   it('Verifica se as cores geradas na paleta são diferentes a cada carregamento da página', () => {
     cy.get('.color').then((colors) => {
-      let currentColors; let
-        previousColors;
+      let currentColors;
+      let previousColors;
 
-      previousColors = Array.from(colors).map((color) => (
+      previousColors = Array.from(colors).map((color) =>
         Cypress.$(color).css('background-color')
-      ));
+      );
 
       for (let i = 0; i < 5; i += 1) {
         cy.reload();
         cy.get('.color').then((colors) => {
-          currentColors = Array.from(colors).map((color) => (
+          currentColors = Array.from(colors).map((color) =>
             Cypress.$(color).css('background-color')
-          ));
+          );
 
           expect(currentColors).not.to.deep.equal(previousColors);
           previousColors = currentColors;
@@ -486,21 +457,21 @@ describe('12 - Faça com que as cores da paleta sejam geradas aleatoriamente ao 
 
   it('Verifica se a cor preta ainda está presente e é a primeira na sua paleta de cores', () => {
     cy.get('.color').then((colors) => {
-      let currentColors; let
-        previousColors;
+      let currentColors;
+      let previousColors;
 
-      previousColors = Array.from(colors).map((color) => (
+      previousColors = Array.from(colors).map((color) =>
         Cypress.$(color).css('background-color')
-      ));
+      );
 
       expect(previousColors[0]).to.eq(BLACK);
 
       for (let i = 0; i < 5; i += 1) {
         cy.reload();
         cy.get('.color').then((colors) => {
-          currentColors = Array.from(colors).map((color) => (
+          currentColors = Array.from(colors).map((color) =>
             Cypress.$(color).css('background-color')
-          ));
+          );
 
           expect(currentColors[0]).to.eq(BLACK);
           expect(currentColors).not.to.deep.equal(previousColors);

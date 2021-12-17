@@ -16,6 +16,22 @@ function makeBoardPixel() {
     pixelBoard.appendChild(pixelBlock);
   }
 }
+// making a rondom color
+function randomColors() {
+  const colors1 = Math.floor(Math.random() * 255);
+  const colors2 = Math.floor(Math.random() * 255);
+  const colors3 = Math.floor(Math.random() * 255);
+  const random = `rgb(${colors1},${colors2},${colors3})`;
+  return random;
+}
+function applyingColors() {
+  const palette = document.getElementsByClassName('color');
+  palette[0].style.backgroundColor = 'black';
+  for (let i = 1; i < palette.length; i += 1) {
+    palette[i].style.backgroundColor = randomColors();
+  }
+}
+
 // seleciona as cores
 function clearClass() {
   const selectedColor = document.getElementsByClassName('color');
@@ -35,13 +51,30 @@ function selectColors() {
     });
   }
 }
-
-/*
-Passar pelas 4 cores, verificar se existe algum selected na lista de classes e se tiver ela apaga a classe
-*/
+// pintando os pixels
+function getColor() {
+  const selectedColor = document.getElementsByClassName('color');
+  for (let i = 0; i < selectedColor.length; i += 1) {
+    if (selectedColor[i].classList.contains('selected')) {
+      return selectedColor[i].style.backgroundColor;
+    }
+  }
+}
+function paintPixels() {
+  const pixel = document.getElementsByClassName('pixel');
+  for (let i = 0; i < pixel.length; i += 1) {
+    pixel[i].addEventListener('click', () => {
+      console.log('oi');
+      pixel[i].style.backgroundColor = getColor();
+    });
+  }
+}
+// fazer uma função para cores aleatorias e jogar dentro da primeira;
 
 window.onload = () => {
   makeColorBlock();
   makeBoardPixel();
   selectColors();
+  paintPixels();
+  applyingColors();
 };
