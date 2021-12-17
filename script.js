@@ -64,12 +64,20 @@ function paintPixels() {
   const pixel = document.getElementsByClassName('pixel');
   for (let i = 0; i < pixel.length; i += 1) {
     pixel[i].addEventListener('click', () => {
-      console.log('oi');
       pixel[i].style.backgroundColor = getColor();
     });
   }
 }
-// fazer uma função para cores aleatorias e jogar dentro da primeira;
+// limpa o quadro de pixels
+function clearBoard() {
+  const button = document.getElementById('clear-board');
+  const pixelBoard = document.getElementsByClassName('pixel');
+  for (let i = 0; i < pixelBoard.length; i += 1) {
+    button.addEventListener('click', () => {
+      pixelBoard[i].style.backgroundColor = 'white';
+    });
+  }
+}
 
 window.onload = () => {
   makeColorBlock();
@@ -77,4 +85,5 @@ window.onload = () => {
   selectColors();
   paintPixels();
   applyingColors();
+  clearBoard();
 };
