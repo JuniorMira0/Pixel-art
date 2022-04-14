@@ -91,3 +91,4 @@ window.onload = () => {
 };
 
 // Projeto realizado com ajuda e supervisão de Emanoel Mattos Ribeiro - Turma 14 - Tribo C e Lucas Cardoso - Turma 3
+// Marcos campos Turma 19 - Trbibo B pelo apoio psicologico principalmente rs
